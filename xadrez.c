@@ -1,32 +1,85 @@
 #include <stdio.h>
 
-// Desafio de Xadrez - MateCheck
-// Este código inicial serve como base para o desenvolvimento do sistema de movimentação das peças de xadrez.
-// O objetivo é utilizar estruturas de repetição e funções para determinar os limites de movimentação dentro do jogo.
+/**
+ * Funções Recursivas para substituir loops simples
+ */
+
+// Simula o movimento da Torre (5 casas para a Direita)
+void moverTorre(int casas) {
+    if (casas > 0) {
+        printf("Direita\n");
+        moverTorre(casas - 1); // Chamada recursiva diminuindo o contador
+    }
+}
+
+// Simula o movimento da Rainha (8 casas para a Esquerda)
+void moverRainha(int casas) {
+    if (casas > 0) {
+        printf("Esquerda\n");
+        moverRainha(casas - 1);
+    }
+}
+
+// Simula o movimento do Bispo recursivamente (para a composição de direção)
+void moverBispoRecursivo(int casas) {
+    if (casas > 0) {
+        printf("Cima, Direita\n");
+        moverBispoRecursivo(casas - 1);
+    }
+}
 
 int main() {
-    // Nível Novato - Movimentação das Peças
-    // Sugestão: Declare variáveis constantes para representar o número de casas que cada peça pode se mover.
+    // Constantes de movimentação
+    const int MOV_TORRE = 5;
+    const int MOV_BISPO = 5;
+    const int MOV_RAINHA = 8;
 
-    // Implementação de Movimentação do Bispo
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação do Bispo em diagonal.
+    // --- Movimentação da Torre (Recursiva) ---
+    printf("Movimento da Torre:\n");
+    moverTorre(MOV_TORRE);
+    printf("\n");
 
-    // Implementação de Movimentação da Torre
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Torre para a direita.
+    // --- Movimentação da Rainha (Recursiva) ---
+    printf("Movimento da Rainha:\n");
+    moverRainha(MOV_RAINHA);
+    printf("\n");
 
-    // Implementação de Movimentação da Rainha
-    // Sugestão: Utilize uma estrutura de repetição para simular a movimentação da Rainha para a esquerda.
+    // --- Movimentação do Bispo (Loops Aninhados e Recursividade) ---
+    // Requisito: Loop externo vertical, interno horizontal.
+    printf("Movimento do Bispo (Loops Aninhados):\n");
+    for (int i = 0; i < MOV_BISPO; i++) { // Vertical
+        for (int j = 0; j < 1; j++) {     // Horizontal (uma execução por casa)
+            printf("Cima, ");
+        }
+        printf("Direita\n");
+    }
+    printf("\n");
 
-    // Nível Aventureiro - Movimentação do Cavalo
-    // Sugestão: Utilize loops aninhados para simular a movimentação do Cavalo em L.
-    // Um loop pode representar a movimentação horizontal e outro vertical.
+    // --- Movimentação do Cavalo (Loops Complexos) ---
+    // Requisito: 2 casas para Cima e 1 para a Direita em "L".
+    // Utilizando múltiplas variáveis e break/continue.
+    printf("Movimento do Cavalo:\n");
+    
+    // Loop externo com múltiplas variáveis para controle
+    for (int i = 0, casasCima = 2; i < 1; i++) {
+        // Loop interno simulando o salto vertical
+        for (int j = 0; j < 10; j++) { 
+            if (j < casasCima) {
+                printf("Cima\n");
+                continue; // Pula para a próxima iteração até completar as casas de cima
+            }
+            
+            printf("Direita\n");
+            break; // Sai do loop após completar o movimento lateral do "L"
+        }
+    }
 
-    // Nível Mestre - Funções Recursivas e Loops Aninhados
-    // Sugestão: Substitua as movimentações das peças por funções recursivas.
-    // Exemplo: Crie uma função recursiva para o movimento do Bispo.
-
-    // Sugestão: Implemente a movimentação do Cavalo utilizando loops com variáveis múltiplas e condições avançadas.
-    // Inclua o uso de continue e break dentro dos loops.
+    /* 
+     * Documentação Técnica:
+     * 1. Recursividade: Reduz a dependência de loops locais e utiliza a pilha de chamadas.
+     * 2. Bispo: O loop aninhado decompõe a diagonal em eixos X e Y.
+     * 3. Cavalo: O uso de 'continue' gerencia o deslocamento vertical e 'break' finaliza a jogada.
+     */
 
     return 0;
 }
